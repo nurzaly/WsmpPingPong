@@ -1,0 +1,43 @@
+.title{
+    text-align: center;
+}
+
+#board{
+    width: 600px;
+    height: 300px;
+    background-color:black;
+    margin: auto;
+    position: relative;
+}
+
+.paddle{
+    width: 20px;
+    height: 100px;
+    position: absolute;
+    margin-top: auto;
+    margin-bottom: auto;
+    top: 0;
+    bottom: 0;
+}
+
+#ball{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position:absolute;
+    background-color: white;
+    border-radius: 50%;
+}
+
+#computer-paddle{
+    background-color: aqua;
+}
+#player-paddle{
+    right: 0;
+    background-color: bisque;
+}
