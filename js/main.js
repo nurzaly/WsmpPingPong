@@ -46,7 +46,7 @@ document.onkeydown = function(e){
 function init(){
 
     ball = {
-        top: 200,
+        top: 300,
         left: 200,
         speed: 10,
         angle: UP_LEFT
@@ -109,14 +109,18 @@ function updateBall(){
         }
     }
 
-    if(isBallHitRight()){
-        if(ball.angle === UP_RIGHT){
-            ball.angle = UP_LEFT;
-        }
-        else{
-            ball.angle = DONW_LEFT;
-        }
+    if(isBallHitPlayerPaddle()){
+      ball.angle = ball.angle === DOWN_RIGHT ? DONW_LEFT : UP_LEFT;
     }
+
+    // if(isBallHitRight()){
+    //     if(ball.angle === UP_RIGHT){
+    //         ball.angle = UP_LEFT;
+    //     }
+    //     else{
+    //         ball.angle = DONW_LEFT;
+    //     }
+    // }
 
 }
 
@@ -173,6 +177,10 @@ function isBallHitBottom(){
 
 function isBallHitRight(){
     return ball.left >= $board.width() - $ball.width();
+}
+
+function isBallHitPlayerPaddle(){
+  return $ball.position().left + $ball.width() >= $playerPaddle.position().left && ($ball.position().top + $ball.height() > $playerPaddle.position().top && $ball.position().top + $ball.height() < $playerPaddle.position().top + $playerPaddle.height() );
 }
 
 init();
