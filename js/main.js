@@ -64,7 +64,7 @@ function init(){
 }
 
 function startGame(){
-    interval = setInterval(update, 20);
+    interval = setInterval(update, 100);
 }
 
 function update(){
@@ -180,7 +180,7 @@ function isBallHitRight(){
 }
 
 function isBallHitPlayerPaddle(){
-  return $ball.position().left + $ball.width() >= $playerPaddle.position().left && ($ball.position().top + $ball.height() > $playerPaddle.position().top && $ball.position().top + $ball.height() < $playerPaddle.position().top + $playerPaddle.height() );
+  return $ball.position().left + $ball.width() >= $playerPaddle.position().left && ($ball.position().top + $ball.height()/2 > $playerPaddle.position().top && $ball.position().top + $ball.height()/2 < $playerPaddle.position().top + $playerPaddle.height() );
 }
 
 init();
