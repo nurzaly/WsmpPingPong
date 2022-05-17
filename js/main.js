@@ -15,10 +15,11 @@ let ball = null;
 let interval = null;
 let computerPaddle = null;
 let playerPaddle = null;
+let isGameOn = true;
 
 computerPaddle = {
     direction: PADDLE_UP,
-    SPEED: 5,
+    SPEED: 3,
     top: $board.height()/2 - $computerPaddle.height()/2
 };
 
@@ -46,8 +47,8 @@ document.onkeydown = function(e){
 function init(){
 
     ball = {
-        top: 300,
-        left: 200,
+        top: $board.height()/2 - $ball.height()/2,
+        left: $board.width()/2 - $ball.width()/2,
         speed: 10,
         angle: UP_LEFT
     };
@@ -60,14 +61,21 @@ function init(){
         top:`${playerPaddle.top}px`
     });
 
+    $ball.css({
+        top:`${ball.top}px`,
+        left:`${ball.left}px`
+    });
+
     startGame();
 }
 
 function startGame(){
-    interval = setInterval(update, 100);
+
+    interval = setInterval(update, 20);
 }
 
 function update(){
+    if(!isGameOn) return;
     updateComputerPaddle();
     updateBall();
 }
@@ -91,13 +99,13 @@ function updateBall(){
         }
     }
 
+    if(isBallHitComputerPaddle()){
+        ball.angle = ball.angle === DONW_LEFT ? DOWN_RIGHT : UP_RIGHT;
+    }
+
     if(isBallHitLeft()){
-        if(ball.angle === DONW_LEFT){
-            ball.angle = DOWN_RIGHT;
-        }
-        else{
-            ball.angle = UP_RIGHT
-        }
+        isGameOn = false;
+        clearInterval(interval);
     }
 
     if(isBallHitBottom()){
@@ -113,14 +121,12 @@ function updateBall(){
       ball.angle = ball.angle === DOWN_RIGHT ? DONW_LEFT : UP_LEFT;
     }
 
-    // if(isBallHitRight()){
-    //     if(ball.angle === UP_RIGHT){
-    //         ball.angle = UP_LEFT;
-    //     }
-    //     else{
-    //         ball.angle = DONW_LEFT;
-    //     }
-    // }
+    if(isBallHitRight()){
+        //isGameOn = false;
+        //clearInterval(interval);
+        console.log(ball.angle);
+        ball.angle = ball.angle === DOWN_RIGHT ? DONW_LEFT : UP_LEFT;
+    }
 
 }
 
@@ -144,15 +150,27 @@ function updatePlayerPaddle(){
 
 function updateComputerPaddle(){
 
-    if(computerPaddle.top > $board.height() - $computerPaddle.height()){
+    if(ball.top < computerPaddle.top){
         computerPaddle.direction = -1;
     }
 
-    if(computerPaddle.top < 0){
+    if(ball.top > computerPaddle.top){
         computerPaddle.direction = 1;
     }
 
     computerPaddle.top += computerPaddle.direction * computerPaddle.SPEED;
+
+    if(computerPaddle.top > $board.height() - $computerPaddle.height()){
+        //computerPaddle.direction = -1;
+        computerPaddle.top = $board.height() - $computerPaddle.height();
+    }
+
+    if(computerPaddle.top < 0){
+        //computerPaddle.direction = 1;
+        computerPaddle.top = 0;
+    }
+
+    
 
     $computerPaddle.css({
         top:`${computerPaddle.top}px`
@@ -181,6 +199,10 @@ function isBallHitRight(){
 
 function isBallHitPlayerPaddle(){
   return $ball.position().left + $ball.width() >= $playerPaddle.position().left && ($ball.position().top + $ball.height()/2 > $playerPaddle.position().top && $ball.position().top + $ball.height()/2 < $playerPaddle.position().top + $playerPaddle.height() );
+}
+
+function isBallHitComputerPaddle(){
+    return $ball.position().left <= $computerPaddle.width() && $ball.position().top >= $computerPaddle.position().top && $ball.position().top + $ball.height() <= $computerPaddle.position().top + $computerPaddle.height();
 }
 
 init();
