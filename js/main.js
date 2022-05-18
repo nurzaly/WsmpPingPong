@@ -7,6 +7,7 @@ const UP_LEFT = -3 * Math.PI / 4;
 const UP_RIGHT = - Math.PI / 4;
 const DONW_LEFT = 3 * Math.PI / 4;
 const DOWN_RIGHT = Math.PI / 4;
+const TIME = 30;
 
 const PADDLE_UP = -1;
 const PADDLE_DOWN = 1;
@@ -19,7 +20,7 @@ let isGameOn = true;
 
 computerPaddle = {
     direction: PADDLE_UP,
-    SPEED: 3,
+    SPEED: 5,
     top: $board.height()/2 - $computerPaddle.height()/2
 };
 
@@ -50,7 +51,7 @@ function init(){
         top: $board.height()/2 - $ball.height()/2,
         left: $board.width()/2 - $ball.width()/2,
         speed: 10,
-        angle: UP_LEFT
+        angle: DOWN_RIGHT
     };
 
     $computerPaddle.css({
@@ -71,7 +72,7 @@ function init(){
 
 function startGame(){
 
-    interval = setInterval(update, 20);
+    interval = setInterval(update, TIME);
 }
 
 function update(){
@@ -150,11 +151,11 @@ function updatePlayerPaddle(){
 
 function updateComputerPaddle(){
 
-    if(ball.top < computerPaddle.top){
+    if(ball.top + $ball.height()/2 < computerPaddle.top + $computerPaddle.height()/2){
         computerPaddle.direction = -1;
     }
 
-    if(ball.top > computerPaddle.top){
+    if(ball.top + $ball.height()/2 > computerPaddle.top + $computerPaddle.height()/2){
         computerPaddle.direction = 1;
     }
 
