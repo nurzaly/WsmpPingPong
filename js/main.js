@@ -8,6 +8,7 @@ const UP_RIGHT = - Math.PI / 4;
 const DONW_LEFT = 3 * Math.PI / 4;
 const DOWN_RIGHT = Math.PI / 4;
 const TIME = 30;
+const DIRECTION = Array(UP_LEFT, UP_RIGHT, DONW_LEFT, DOWN_RIGHT);
 
 const PADDLE_UP = -1;
 const PADDLE_DOWN = 1;
@@ -20,7 +21,7 @@ let isGameOn = true;
 
 computerPaddle = {
     direction: PADDLE_UP,
-    SPEED: 5,
+    SPEED: 6,
     top: $board.height()/2 - $computerPaddle.height()/2
 };
 
@@ -50,8 +51,8 @@ function init(){
     ball = {
         top: $board.height()/2 - $ball.height()/2,
         left: $board.width()/2 - $ball.width()/2,
-        speed: 10,
-        angle: DOWN_RIGHT
+        speed: 12,
+        angle: DIRECTION[Math.floor(Math.random() * (3 - 0) + 0)]
     };
 
     $computerPaddle.css({
