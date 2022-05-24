@@ -33,6 +33,7 @@ function updateBall(){
         clearInterval(interval);
         updateScore(KEY_PLAYER_SCORE);
         init();
+        //ball.angle = ball.angle === DOWN_LEFT ? DOWN_RIGHT : UP_RIGHT;
     }
 
     if(isBallHitBottom()){
@@ -49,10 +50,11 @@ function updateBall(){
     }
 
     if(isBallHitRight()){
-        //isGameOn = false;
-        //clearInterval(interval);
-        console.log(ball.angle);
-        ball.angle = ball.angle === DOWN_RIGHT ? DONW_LEFT : UP_LEFT;
+        isGameOn = false;
+        clearInterval(interval);
+        updateScore(KEY_COMPUTER_SCORE);
+        init();
+        //ball.angle = ball.angle === DOWN_RIGHT ? DONW_LEFT : UP_LEFT;
     }
 
 }

@@ -1,5 +1,8 @@
 
 //Object instant
+const $modelBox = $('#modal-box');
+const $btnStart = $('#btn-start');
+
 const $board = $('#board');
 const $ball = $('#ball');
 const $computerPaddle = $('#computer-paddle');
@@ -23,6 +26,10 @@ const DOWN_RIGHT = Math.PI / 4;
 const POINT_PER_ROUND = 2;
 const KEY_PLAYER_SCORE = 'playerScore';
 const KEY_COMPUTER_SCORE = 'computerScore';
+const KEY_GAME_MODE = 'gameMode';
+const MODE_EASY = 1;
+const MODE_MEDIUM = 2;
+const MODE_HARD = 3;
 
 
 const TIME = 30;
@@ -35,8 +42,10 @@ let ball = null;
 let interval = null;
 let computerPaddle = null;
 let playerPaddle = null;
-let isGameOn = true;
+let isGameOn = false;
 let round = 1;
+
+
 
 computerPaddle = {
     direction: PADDLE_UP,
@@ -50,7 +59,12 @@ playerPaddle = {
     top: $board.height()/2 - $playerPaddle.height()/2
 };
 
+
+
 document.onkeydown = function(e){
+
+    if(!isGameOn) return;
+
     switch (e.which){
         case 38: //key up
         playerPaddle.direction = PADDLE_UP;
@@ -60,7 +74,7 @@ document.onkeydown = function(e){
         playerPaddle.direction = PADDLE_DOWN;
         break;
     }
-
+    
     updatePlayerPaddle();
 }
 
@@ -68,6 +82,21 @@ $(document).ready(function(){
 
     localStorage.setItem(KEY_COMPUTER_SCORE, 0);
     localStorage.setItem(KEY_PLAYER_SCORE, 0);
+
+    $('#modal-box h2').hide();
+    $btnStart.click(function(){
+        if(parseInt(localStorage.getItem(KEY_GAME_MODE)) >= 1){
+            $modelBox.hide(1000);
+        }
+        else{
+            $('#modal-box h2').text('Please select game mode to start').show();
+        }
+    });
+
+    $('#modal-box ul li').click(function(){
+        localStorage.setItem(KEY_GAME_MODE, $(this).data('value'))
+        
+    })
 
     $board.click(function(){
         startGame();
