@@ -1,7 +1,8 @@
 
 //Object instant
-const $modelBox = $('#modal-box');
+const $modalBox = $('#modal-box');
 const $btnStart = $('#btn-start');
+const $mode = $('#mode');
 
 const $board = $('#board');
 const $ball = $('#ball');
@@ -27,6 +28,7 @@ const POINT_PER_ROUND = 2;
 const KEY_PLAYER_SCORE = 'playerScore';
 const KEY_COMPUTER_SCORE = 'computerScore';
 const KEY_GAME_MODE = 'gameMode';
+const KEY_GAME_MODE_NAME = 'gameModeName';
 const MODE_EASY = 1;
 const MODE_MEDIUM = 2;
 const MODE_HARD = 3;
@@ -44,20 +46,7 @@ let computerPaddle = null;
 let playerPaddle = null;
 let isGameOn = false;
 let round = 1;
-
-
-
-computerPaddle = {
-    direction: PADDLE_UP,
-    SPEED: 1,
-    top: $board.height()/2 - $computerPaddle.height()/2
-};
-
-playerPaddle = {
-    direction: 1,
-    SPEED: 50,
-    top: $board.height()/2 - $playerPaddle.height()/2
-};
+let sound = new Audio('audio/bounce.mp3');
 
 
 
@@ -82,11 +71,12 @@ $(document).ready(function(){
 
     localStorage.setItem(KEY_COMPUTER_SCORE, 0);
     localStorage.setItem(KEY_PLAYER_SCORE, 0);
+    localStorage.setItem(KEY_GAME_MODE, 0);
 
     $('#modal-box h2').hide();
     $btnStart.click(function(){
         if(parseInt(localStorage.getItem(KEY_GAME_MODE)) >= 1){
-            $modelBox.hide(1000);
+            $modalBox.hide();
         }
         else{
             $('#modal-box h2').text('Please select game mode to start').show();
@@ -94,16 +84,34 @@ $(document).ready(function(){
     });
 
     $('#modal-box ul li').click(function(){
-        localStorage.setItem(KEY_GAME_MODE, $(this).data('value'))
-        
+        localStorage.setItem(KEY_GAME_MODE, $(this).data('value'));
+        localStorage.setItem(KEY_GAME_MODE_NAME, $(this).text());
+        $mode.text(localStorage.getItem(KEY_GAME_MODE_NAME));
+        $('#modal-box ul li').css('background-color','transparent ');
+        $('#modal-box h2').text('').hide();
+        $(this).css('background-color', 'red');
     })
 
     $board.click(function(){
-        startGame();
+        if(!isGameOn) startGame();
     });
+
+    
 });
 
 function init(){
+
+    computerPaddle = {
+        direction: PADDLE_UP,
+        SPEED: 1,
+        top: $board.height()/2 - $computerPaddle.height()/2
+    };
+    
+    playerPaddle = {
+        direction: 1,
+        SPEED: 50,
+        top: $board.height()/2 - $playerPaddle.height()/2
+    };
 
     ball = {
         top: $board.height()/2 - $ball.height()/2,

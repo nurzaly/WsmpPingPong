@@ -19,19 +19,19 @@ body{
 
 #info-board{
     background-color: dimgrey;
-    width: 400px;
+    width: 650px;
     padding: 5px;
-    border-radius: 7px;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 #info-board h3{
     text-align: center;
     color: #303030;
 }
-
-#info-board .scoreboard{
-    
-} 
 
 #info-board .scoreboard table{
     width: 100%;
@@ -41,6 +41,7 @@ body{
 #info-board .scoreboard table tr td{
     text-align: center;
     padding: 5px;
+    width: 25%;
 }
 
 
@@ -77,8 +78,6 @@ body{
 #player-score{
     right: 25%;
 }
-
-
 
 #line{
 

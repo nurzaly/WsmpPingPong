@@ -67,5 +67,5 @@ function isBallHitPlayerPaddle(){
 }
 
 function isBallHitComputerPaddle(){
-    return $ball.position().left <= $computerPaddle.width() && $ball.position().top >= $computerPaddle.position().top && $ball.position().top + $ball.height() <= $computerPaddle.position().top + $computerPaddle.height();
+    return $ball.position().left <= $computerPaddle.width() && $ball.position().top + $ball.height() >= $computerPaddle.position().top && $ball.position().top <= $computerPaddle.position().top + $computerPaddle.height();
 }

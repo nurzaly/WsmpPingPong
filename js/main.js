@@ -25,6 +25,7 @@ function updateBall(){
     }
 
     if(isBallHitComputerPaddle()){
+        sound.play();
         ball.angle = ball.angle === DONW_LEFT ? DOWN_RIGHT : UP_RIGHT;
     }
 
@@ -46,7 +47,8 @@ function updateBall(){
     }
 
     if(isBallHitPlayerPaddle()){
-      ball.angle = ball.angle === DOWN_RIGHT ? DONW_LEFT : UP_LEFT;
+        sound.play();
+        ball.angle = ball.angle === DOWN_RIGHT ? DONW_LEFT : UP_LEFT;
     }
 
     if(isBallHitRight()){
