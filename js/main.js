@@ -16,12 +16,7 @@ function updateBall(){
     });
 
     if(isBallHitTop()){
-        if(ball.angle === UP_RIGHT){
-            ball.angle = DOWN_RIGHT
-        }
-        else{
-            ball.angle = DONW_LEFT
-        }
+        ball.angle = ball.angle === UP_RIGHT ? DOWN_RIGHT : DONW_LEFT;
     }
 
     if(isBallHitComputerPaddle()){
@@ -38,12 +33,7 @@ function updateBall(){
     }
 
     if(isBallHitBottom()){
-        if(ball.angle === DOWN_RIGHT){
-            ball.angle = UP_RIGHT;
-        }
-        else{
-            ball.angle = UP_LEFT;
-        }
+        ball.angle = ball.angle === DOWN_RIGHT ? UP_RIGHT : UP_LEFT;
     }
 
     if(isBallHitPlayerPaddle()){

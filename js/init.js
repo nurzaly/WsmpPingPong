@@ -46,6 +46,8 @@ let computerPaddle = null;
 let playerPaddle = null;
 let isGameOn = false;
 let round = 1;
+let playerWin = 0;
+let computerWin = 0;
 let sound = new Audio('audio/bounce.mp3');
 
 
@@ -92,6 +94,10 @@ $(document).ready(function(){
         $(this).css('background-color', 'red');
     })
 
+    $('#btn-restart').click(function(){
+        location.reload();
+    });
+
     $board.click(function(){
         if(!isGameOn) startGame();
     });
@@ -103,7 +109,7 @@ function init(){
 
     computerPaddle = {
         direction: PADDLE_UP,
-        SPEED: 1,
+        SPEED: 2,
         top: $board.height()/2 - $computerPaddle.height()/2
     };
     
@@ -136,5 +142,7 @@ function init(){
 
 function startGame(){
     isGameOn = true;
+    computerPaddle.SPEED *= parseInt(localStorage.getItem(KEY_GAME_MODE));
+    console.log(computerPaddle.SPEED);
     interval = setInterval(update, TIME);
 }

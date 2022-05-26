@@ -22,12 +22,38 @@ function updateScore(user){
             break;
         }
 
+        
+
         $playerScore.text(localStorage.setItem(KEY_PLAYER_SCORE, 0));
         $computerScore.text(localStorage.setItem(KEY_COMPUTER_SCORE, 0));
+        
+
+        if(user == KEY_PLAYER_SCORE){
+            playerWin++;
+            winnerChecker();
+        }
+
+        if(user == KEY_COMPUTER_SCORE){
+            computerWin++;
+            winnerChecker();
+        }
+
         round++;
     }
 
     
     $playerScore.text(localStorage.getItem(KEY_PLAYER_SCORE));
     $computerScore.text(localStorage.getItem(KEY_COMPUTER_SCORE));
+}
+
+function winnerChecker(){
+    if(playerWin == 2){
+        $('#restart h2').text('You are the Winner');
+        $('#restart-box').show();
+    }
+    if(computerWin == 2){
+        $('#restart h2').text('You are the Loser');
+        $('#restart-box').show();
+    }
+    
 }
